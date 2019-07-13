@@ -70,30 +70,8 @@ class Application extends Config {
     public function actionFormSubmit($data) {
 
         $errors = [];                                  //Отсутствие ошибок
-        $name=$data[0]['value']; //переменная значения поля name
-        $phone=$data[1]['value'];//переменная значения поля phone
-        $email=$data[2]['value'];//переменная значения поля email
-        $comment=$data[3]['value'];//переменная поля comment
-        
-        if($name=='') //проверка имени на наличие значения
-            $errors['name']='поле обязательное';
-	    if(preg_match('/\d/',$name)) //проверка имени на наличие цифр
-	       $errors['name']='цифры запрещены';
-		if(strlen($name)>64) //проверка имени на количество символов
-		    $errors['name']='количество символов должно быть меньше или равно 64';
-		
-		if($phone=='') //проверка телефона на наличие значение
-		    $errors['phone']='поле обязательное';
-		
-		if(!($email=='')) //проверка имейла на валидность
-		     if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-		        $errors['email']='введите валидный email или оставте поле пустым';
-		
-		if(strlen($comment)>1024)$errors['comment']='количество символов должно быть меньше 1024';//проверка комментария на количество символов
-		
 
-        if(count($errors)>0) return ['result' => false, 'error' => $errors];//возврат результата с ошибками
-        else return['result'=>true, []];//возврат результата без ошибок
+        return ['result' => count($errors) === 0, 'error' => $errors];
     }
 
 
